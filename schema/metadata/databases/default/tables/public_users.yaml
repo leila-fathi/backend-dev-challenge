@@ -1,0 +1,42 @@
+table:
+  name: users
+  schema: public
+object_relationships:
+  - name: default_group
+    using:
+      foreign_key_constraint_on: default_group_id
+array_relationships:
+  - name: memberships
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: group_memberships
+          schema: public
+  - name: projects_created
+    using:
+      foreign_key_constraint_on:
+        column: created_by
+        table:
+          name: projects
+          schema: public
+  - name: nodes_created
+    using:
+      foreign_key_constraint_on:
+        column: created_by
+        table:
+          name: nodes
+          schema: public
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - id
+        - email
+        - display_name
+        - default_group_id
+        - created_at
+        - last_login_at
+      filter:
+        id:
+          _eq: X-Hasura-User-Id

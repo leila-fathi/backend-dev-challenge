@@ -1,0 +1,16 @@
+query GetProjectForUser($projectId: uuid!, $userId: uuid!) {
+  projects(
+    where: {
+      id: {_eq: $projectId},
+      group: {
+        memberships: {
+          user_id: {_eq: $userId}
+        }
+      }
+    },
+    limit: 1
+  ) {
+    id
+    group_id
+  }
+}

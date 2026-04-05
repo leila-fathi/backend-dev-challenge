@@ -1,0 +1,58 @@
+table:
+  name: folders
+  schema: public
+object_relationships:
+  - name: project
+    using:
+      manual_configuration:
+        remote_table:
+          name: projects
+          schema: public
+        column_mapping:
+          project_id: id
+        insertion_order: null
+  - name: parent_folder
+    using:
+      manual_configuration:
+        remote_table:
+          name: folders
+          schema: public
+        column_mapping:
+          parent_id: id
+        insertion_order: null
+array_relationships:
+  - name: child_folders
+    using:
+      manual_configuration:
+        remote_table:
+          name: folders
+          schema: public
+        column_mapping:
+          id: parent_id
+        insertion_order: null
+  - name: images
+    using:
+      manual_configuration:
+        remote_table:
+          name: images
+          schema: public
+        column_mapping:
+          id: parent_id
+        insertion_order: null
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - id
+        - project_id
+        - parent_id
+        - group_id
+        - created_by
+        - name
+        - created_at
+      filter:
+        project:
+          group:
+            memberships:
+              user_id:
+                _eq: X-Hasura-User-Id

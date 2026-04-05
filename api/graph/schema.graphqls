@@ -1,0 +1,25 @@
+scalar Time
+
+type CreateTokenPayload {
+  token: String!
+  tokenExpiresAt: Int!
+  userId: ID!
+  groupId: ID!
+  email: String!
+  displayName: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Query {
+  ping: String!
+}
+
+type Mutation {
+  login(input: LoginInput!): CreateTokenPayload!
+  renewToken: CreateTokenPayload!
+  switchGroup(groupId: ID!): CreateTokenPayload!
+}

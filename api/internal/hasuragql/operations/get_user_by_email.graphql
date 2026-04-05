@@ -1,0 +1,9 @@
+query GetUserByEmail($email: String!) {
+  users(where: {email: {_eq: $email}}, limit: 1) {
+    id
+    email
+    display_name
+    password_hash
+    default_group_id
+  }
+}

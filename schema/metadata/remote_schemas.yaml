@@ -1,0 +1,38 @@
+- comment: ""
+  definition:
+    forward_client_headers: true
+    timeout_seconds: 60
+    url: http://api:8081/graphql
+  name: backend
+  permissions:
+    - definition:
+        schema: |
+          schema {
+            query: Query
+            mutation: Mutation
+          }
+
+          type Query {
+            ping: String!
+          }
+
+          input LoginInput {
+            email: String!
+            password: String!
+          }
+
+          type CreateTokenPayload {
+            token: String!
+            tokenExpiresAt: Int!
+            userId: ID!
+            groupId: ID!
+            email: String!
+            displayName: String!
+          }
+
+          type Mutation {
+            login(input: LoginInput!): CreateTokenPayload!
+            renewToken: CreateTokenPayload!
+            switchGroup(groupId: ID!): CreateTokenPayload!
+          }
+      role: user

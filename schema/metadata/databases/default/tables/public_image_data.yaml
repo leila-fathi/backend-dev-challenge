@@ -1,0 +1,24 @@
+table:
+  name: image_data
+  schema: public
+object_relationships:
+  - name: file
+    using:
+      foreign_key_constraint_on: file_id
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - file_id
+        - mime_type
+        - size_bytes
+        - storage_key
+        - thumbnail_key
+        - created_at
+      filter:
+        file:
+          project:
+            group:
+              memberships:
+                user_id:
+                  _eq: X-Hasura-User-Id

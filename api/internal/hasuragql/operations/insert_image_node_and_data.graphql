@@ -1,0 +1,38 @@
+mutation InsertImageNodeAndData(
+  $nodeId: uuid!,
+  $projectId: uuid!,
+  $parentId: uuid,
+  $groupId: uuid!,
+  $createdBy: uuid!,
+  $name: String!,
+  $createdAt: timestamptz!,
+  $mimeType: String!,
+  $sizeBytes: bigint!,
+  $storageKey: String!,
+  $thumbnailKey: String!
+) {
+  insert_nodes_one(object: {
+    id: $nodeId,
+    project_id: $projectId,
+    parent_id: $parentId,
+    group_id: $groupId,
+    created_by: $createdBy,
+    node_type: "image",
+    name: $name,
+    created_at: $createdAt,
+    image: {
+      data: {
+        mime_type: $mimeType,
+        size_bytes: $sizeBytes,
+        storage_key: $storageKey,
+        thumbnail_key: $thumbnailKey,
+        created_at: $createdAt
+      }
+    }
+  }) {
+    id
+    image {
+      file_id
+    }
+  }
+}

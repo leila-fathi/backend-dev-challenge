@@ -1,0 +1,29 @@
+table:
+  name: groups
+  schema: public
+array_relationships:
+  - name: memberships
+    using:
+      foreign_key_constraint_on:
+        column: group_id
+        table:
+          name: group_memberships
+          schema: public
+  - name: projects
+    using:
+      foreign_key_constraint_on:
+        column: group_id
+        table:
+          name: projects
+          schema: public
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - id
+        - name
+        - created_at
+      filter:
+        memberships:
+          user_id:
+            _eq: X-Hasura-User-Id

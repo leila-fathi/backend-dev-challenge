@@ -1,0 +1,11 @@
+query CheckProjectGroup($projectId: uuid!, $groupId: uuid!) {
+  projects(
+    where: {
+      id: {_eq: $projectId},
+      group_id: {_eq: $groupId}
+    },
+    limit: 1
+  ) {
+    id
+  }
+}

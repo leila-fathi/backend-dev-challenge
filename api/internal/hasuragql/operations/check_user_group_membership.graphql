@@ -1,0 +1,11 @@
+query CheckUserGroupMembership($userId: uuid!, $groupId: uuid!) {
+  group_memberships(
+    where: {
+      user_id: {_eq: $userId},
+      group_id: {_eq: $groupId}
+    },
+    limit: 1
+  ) {
+    user_id
+  }
+}

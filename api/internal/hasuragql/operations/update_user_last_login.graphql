@@ -1,0 +1,8 @@
+mutation UpdateUserLastLogin($userId: uuid!, $lastLoginAt: timestamptz!) {
+  update_users_by_pk(
+    pk_columns: {id: $userId},
+    _set: {last_login_at: $lastLoginAt}
+  ) {
+    id
+  }
+}
